@@ -113,17 +113,31 @@ home();
 
   function answerFor(text){
     const n = normalize(text);
+
+    // Respuestas pensadas para preguntas naturales usadas en la demo.
+    if(n.includes('para que sirve') || n.includes('sirve esta pagina') || n.includes('esta pagina') || n.includes('pagina') || n.includes('plataforma')) {
+      return 'Esta página sirve para presentar SynConnect AI: una herramienta que te ayuda a conocer tu nivel de confianza social, identificar tu perfil y recibir recomendaciones para mejorar la forma en que interactúas con otras personas.';
+    }
+    if((n.includes('explicar') || n.includes('explicame') || n.includes('como funciona') || n.includes('como es')) && n.includes('test')) {
+      return 'Claro. El test te muestra situaciones sociales comunes y tú eliges la opción que más se parece a cómo reaccionas. Al final, SynConnect analiza tus respuestas y te muestra un perfil social con recomendaciones iniciales.';
+    }
+    if(n.includes('informacion') || n.includes('info') || n.includes('guarda') || n.includes('guardan') || n.includes('privad') || n.includes('datos') || n.includes('segur') || n.includes('correo')) {
+      return 'Tus respuestas se usan para calcular tu resultado dentro del test y darte una orientación personalizada. La idea de la plataforma es mantener la experiencia privada; además, no debes ingresar datos sensibles como contraseñas, documentos o información bancaria.';
+    }
+    if(n.includes('despues') || n.includes('luego') || n.includes('terminar') || n.includes('termino') || n.includes('completar') || n.includes('complete')) {
+      return 'Después del test puedes revisar tu perfil social, entender tus fortalezas y áreas de mejora, y usar las recomendaciones o el Coach IA para practicar situaciones sociales de forma gradual.';
+    }
+
     if(n.includes('empezar') || n.includes('comenzar') || n.includes('iniciar') || n.includes('hacer test') || n.includes('realizar test')) return qa[7].a;
     if(n.includes('gratis') || n.includes('precio') || n.includes('pagar') || n.includes('costo') || n.includes('cuesta')) return qa[3].a;
-    if(n.includes('privad') || n.includes('datos') || n.includes('segur') || n.includes('respuesta') || n.includes('correo')) return qa[4].a;
     if(n.includes('perfil') || n.includes('conector') || n.includes('pensador') || n.includes('sobreanalizador') || n.includes('explorador')) return qa[5].a;
     if(n.includes('coach') || n.includes('ia') || n.includes('practicar') || n.includes('conversacion') || n.includes('simula')) return qa[6].a;
     if(n.includes('dura') || n.includes('tiempo') || n.includes('minuto') || n.includes('rapido')) return qa[2].a;
-    if(n.includes('funciona') || n.includes('como es') || n.includes('preguntas') || n.includes('resultado')) return qa[1].a;
+    if(n.includes('funciona') || n.includes('preguntas') || n.includes('resultado') || n.includes('test')) return qa[1].a;
     if(n.includes('ansiedad') || n.includes('timidez') || n.includes('nervios') || n.includes('miedo')) return 'SynConnect puede ayudarte a reconocer patrones como sobrepensar, evitar reuniones, revisar conversaciones pasadas o sentir miedo al rechazo. A partir de eso, te sugiere ejercicios y prácticas para avanzar gradualmente.';
-    if(n.includes('hola') || n.includes('buenas') || n.includes('ayuda')) return '¡Hola! Puedes preguntarme sobre el test, los perfiles, privacidad, duración o cómo funciona el Coach IA. También puedes elegir una pregunta rápida de abajo.';
+    if(n.includes('hola') || n.includes('buenas') || n.includes('ayuda')) return '¡Hola! Soy el asistente de SynConnect AI. Puedes preguntarme sobre el test, privacidad, perfiles o qué hacer después de completar la evaluación.';
     if(n.includes('synconnect') || n.includes('que es') || n.includes('qué es')) return qa[0].a;
-    return 'Te puedo orientar sobre SynConnect AI, el test de confianza social, los perfiles, privacidad, duración y el Coach IA. Por ahora respondo con información predefinida, así que prueba con una de las preguntas rápidas o escribe una duda relacionada.';
+    return 'Puedo ayudarte con dudas sobre SynConnect AI, el test de confianza social, privacidad, perfiles y recomendaciones. Prueba preguntarme, por ejemplo: “¿Para qué sirve esta página?” o “¿Qué puedo hacer después del test?”.';
   }
 
   function botReply(text){
