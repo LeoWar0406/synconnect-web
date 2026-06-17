@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SynConnect AI - Test</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section id="screen" class="phone-card"></section>
+  </main>
+
+  <div class="scbot" aria-live="polite">
+    <button class="scbot-toggle" type="button" aria-label="Abrir chatbot SynConnect">
+      <span class="scbot-pulse"></span>
+      <span class="scbot-icon">💬</span>
+    </button>
+    <section class="scbot-panel" aria-label="Chatbot SynConnect AI">
+      <div class="scbot-head">
+        <div class="scbot-avatar">AI</div>
+        <div>
+          <h3>SynConnect Bot</h3>
+          <p><span></span> En línea</p>
+        </div>
+        <button class="scbot-close" type="button" aria-label="Cerrar chatbot">×</button>
+      </div>
+      <div class="scbot-messages"></div>
+      <div class="scbot-suggestions" aria-label="Preguntas rápidas"></div>
+      <form class="scbot-form">
+        <input type="text" placeholder="Escribe una pregunta..." autocomplete="off" />
+        <button type="submit">➤</button>
+      </form>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
