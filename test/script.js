@@ -39,7 +39,13 @@ function renderQuestion(i){
   step=i; const q=questions[i];
   screen.innerHTML=`<div class="quiz-inner"><div class="topbar"><button class="back" onclick="${i===0?'home()':'renderQuestion('+(i-1)+')'}">‹</button>${logo('small')}</div><div class="step">${i+1} / 5</div><div class="progress"><div class="progress-fill" style="width:${((i+1)/5)*100}%"></div></div><div class="question-card"><h2 class="question-title">${q.title}</h2>${q.options.map((o,idx)=>`<button class="option ${answers[i]===idx?'selected':''}" onclick="selectOption(${i},${idx},${o[1]})">${icon(o[2])}<span>${o[0]}</span><span class="radio"></span></button>`).join('')}<button class="btn small" onclick="nextQuestion()">${i===4?'Ver resultados':'Siguiente'} <span class="arrow">→</span></button></div></div>`;
 }
-function selectOption(qidx,idx,score){answers[qidx]=idx; answers['score'+qidx]=score; renderQuestion(qidx)}
+function selectOption(qidx,idx,score){
+  answers[qidx]=idx;
+  answers['score'+qidx]=score;
+  document.querySelectorAll('.option').forEach((el, optionIndex)=>{
+    el.classList.toggle('selected', optionIndex === idx);
+  });
+}
 function nextQuestion(){ if(answers[step]===undefined){return} if(step<4) renderQuestion(step+1); else loading(); }
 function loading(){
   screen.innerHTML=`<div class="loading-inner">${logo('small')}<div class="big-logo-circle">${logoMarkOnly()}</div><h2 class="loading-title">Analizando tus<br>respuestas...</h2><div class="loading-sub">Esto tomará algunos segundos</div><div class="loadbar"><span></span></div><div class="percent">75%</div></div>`;
@@ -254,4 +260,16 @@ home();
     botReply(text);
   });
   setTimeout(() => { if(!bot.classList.contains('open')) bot.querySelector('.scbot-toggle')?.classList.add('attention'); }, 1600);
+})();
+
+/* v21: safe stagger for test options without changing layout */
+(function(){
+  const screenNode = document.getElementById('screen');
+  if(!screenNode) return;
+  function stagger(){
+    screenNode.querySelectorAll('.option,.info-card').forEach((el, i) => el.style.setProperty('--stagger', i));
+  }
+  const observer = new MutationObserver(() => requestAnimationFrame(stagger));
+  observer.observe(screenNode, {childList:true, subtree:false});
+  stagger();
 })();

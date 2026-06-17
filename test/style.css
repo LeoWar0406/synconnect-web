@@ -88,3 +88,101 @@ body{
 
 /* v19: draggable chatbot bubble with smooth landing */
 .scbot.dragging{transition:none!important;user-select:none}.scbot.dragging .scbot-toggle{cursor:grabbing;transform:scale(1.03);box-shadow:0 30px 70px rgba(92,55,243,.48)}.scbot-toggle{touch-action:none}.scbot{transition:left .34s cubic-bezier(.16,1,.3,1),right .34s cubic-bezier(.16,1,.3,1),bottom .34s cubic-bezier(.16,1,.3,1),top .34s cubic-bezier(.16,1,.3,1)}.scbot.settling .scbot-toggle{animation:scbotSoftLand .38s cubic-bezier(.16,1,.3,1)}.scbot[data-side="left"] .scbot-panel{left:0;right:auto}.scbot[data-side="right"] .scbot-panel{right:0;left:auto}@keyframes scbotSoftLand{0%{transform:scale(1.03)}70%{transform:scale(.98)}100%{transform:scale(1)}}
+
+/* ===== SynConnect Test animations v21 - layout safe ===== */
+.phone-card{
+  animation:testCardIn .55s cubic-bezier(.2,.9,.25,1) both;
+}
+.screen-inner,
+.quiz-inner,
+.loading-inner,
+.result-inner,
+.thanks-inner{
+  animation:testScreenIn .32s cubic-bezier(.2,.9,.25,1) both;
+}
+.logo-mark{
+  animation:testLogoFloat 4.2s ease-in-out infinite;
+}
+.progress-fill{
+  position:relative;
+  overflow:hidden;
+  transition:width .32s ease;
+}
+.progress-fill::after{
+  content:"";
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:-70px;
+  width:60px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);
+  animation:testProgressShine 1.35s ease-in-out infinite;
+}
+.question-card{
+  animation:testCardPop .34s cubic-bezier(.2,.9,.25,1) both;
+}
+.question-title{
+  animation:testTextIn .28s ease both;
+}
+.option{
+  animation:testOptionIn .28s ease both;
+  animation-delay:calc(var(--stagger, 0) * 55ms);
+  transition:transform .16s ease, border-color .16s ease, box-shadow .16s ease, background .16s ease;
+}
+.option:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 18px rgba(48,35,120,.09);
+  border-color:#b8abff;
+}
+.option.selected{
+  transform:none;
+}
+.btn{
+  position:relative;
+  overflow:hidden;
+}
+.btn::after{
+  content:"";
+  position:absolute;
+  inset:-40% -75%;
+  background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.42),transparent 65%);
+  transform:translateX(-90%);
+  animation:testButtonShine 3s ease-in-out infinite;
+  pointer-events:none;
+}
+.big-logo-circle{
+  animation:testLoadingPulse 1.4s ease-in-out infinite;
+}
+.loadbar span{
+  animation:testLoadGrow 1.1s cubic-bezier(.2,.9,.3,1) both;
+}
+.percent{
+  animation:testTextIn .35s ease both .12s;
+}
+.mood{
+  animation:testMoodIn .48s cubic-bezier(.18,1.35,.25,1) both;
+}
+.result-box,
+.info-card,
+.mail-circle,
+.heart-doodle{
+  animation:testCardPop .38s cubic-bezier(.2,.9,.25,1) both;
+}
+.heart-doodle{
+  animation:testHeartFloat 2.4s ease-in-out infinite;
+}
+@keyframes testCardIn{from{opacity:0;transform:translateY(14px) scale(.99)}to{opacity:1;transform:none}}
+@keyframes testScreenIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes testLogoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes testProgressShine{to{left:115%}}
+@keyframes testCardPop{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes testTextIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+@keyframes testOptionIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes testButtonShine{0%,58%{transform:translateX(-90%)}82%,100%{transform:translateX(90%)}}
+@keyframes testLoadingPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+@keyframes testLoadGrow{from{width:0}to{width:75%}}
+@keyframes testMoodIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+@keyframes testHeartFloat{0%,100%{transform:rotate(-15deg) translateY(0)}50%{transform:rotate(-9deg) translateY(-7px)}}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important;scroll-behavior:auto!important}
+}
