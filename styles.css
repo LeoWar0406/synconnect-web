@@ -482,3 +482,7 @@ h1{font-size:clamp(56px,5vw,74px);line-height:1.05;letter-spacing:-.06em;margin:
 
 /* v18: draggable floating chatbot bubble */
 .scbot.dragging{transition:none!important;user-select:none}.scbot.dragging .scbot-toggle{cursor:grabbing;transform:scale(1.03);box-shadow:0 30px 70px rgba(92,55,243,.48)}.scbot-toggle{touch-action:none}.scbot{transition:left .34s cubic-bezier(.16,1,.3,1),right .34s cubic-bezier(.16,1,.3,1),bottom .34s cubic-bezier(.16,1,.3,1),top .34s cubic-bezier(.16,1,.3,1)}.scbot.settling .scbot-toggle{animation:scbotSoftLand .38s cubic-bezier(.16,1,.3,1)}.scbot[data-side="left"] .scbot-panel{left:0;right:auto}.scbot[data-side="right"] .scbot-panel{right:0;left:auto}@keyframes scbotSoftLand{0%{transform:scale(1.03)}70%{transform:scale(.98)}100%{transform:scale(1)}}
+
+.developer-credit{margin-top:8px!important;font-size:14px;color:#9a8fb2!important}
+.developer-credit a{display:inline!important;color:#7c3aed!important;font-weight:800;text-decoration:none;margin:0!important}
+.developer-credit a:hover{text-decoration:underline}
