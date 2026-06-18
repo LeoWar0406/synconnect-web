@@ -186,3 +186,17 @@ body{
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important;scroll-behavior:auto!important}
 }
+
+/* Drag support for the open chatbot panel */
+.scbot-head{cursor:grab;touch-action:none;user-select:none}
+.scbot-head:active{cursor:grabbing}
+.scbot.panel-dragging .scbot-panel{transition:none!important}
+.scbot.panel-dragging .scbot-head{cursor:grabbing}
+.scbot.panel-detached .scbot-panel{z-index:10000}
+
+/* v28: smooth snap for draggable open chatbot panel */
+.scbot.panel-settling .scbot-panel{
+  transition:left .36s cubic-bezier(.16,1,.3,1), top .36s cubic-bezier(.16,1,.3,1), box-shadow .22s ease !important;
+  box-shadow:0 34px 95px rgba(24,20,58,.26);
+}
+.scbot.panel-settling .scbot-head{cursor:grab}

@@ -486,3 +486,17 @@ h1{font-size:clamp(56px,5vw,74px);line-height:1.05;letter-spacing:-.06em;margin:
 .developer-credit{margin-top:8px!important;font-size:14px;color:#9a8fb2!important}
 .developer-credit a{display:inline!important;color:#7c3aed!important;font-weight:800;text-decoration:none;margin:0!important}
 .developer-credit a:hover{text-decoration:underline}
+
+/* Drag support for the open chatbot panel */
+.scbot-head{cursor:grab;touch-action:none;user-select:none}
+.scbot-head:active{cursor:grabbing}
+.scbot.panel-dragging .scbot-panel{transition:none!important}
+.scbot.panel-dragging .scbot-head{cursor:grabbing}
+.scbot.panel-detached .scbot-panel{z-index:10000}
+
+/* v28: smooth snap for draggable open chatbot panel */
+.scbot.panel-settling .scbot-panel{
+  transition:left .36s cubic-bezier(.16,1,.3,1), top .36s cubic-bezier(.16,1,.3,1), box-shadow .22s ease !important;
+  box-shadow:0 34px 95px rgba(24,20,58,.26);
+}
+.scbot.panel-settling .scbot-head{cursor:grab}

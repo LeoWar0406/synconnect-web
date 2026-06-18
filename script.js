@@ -421,6 +421,96 @@ if (coachSection && animatedChat) {
     if (bot.style.left) snapBubbleToBottom();
   });
 
+
+  /* Drag the open chatbot panel by holding the purple header */
+  let panelDragState = null;
+  const panelHeader = bot.querySelector('.scbot-head');
+
+  function clampPanelPosition(left, top){
+    const rect = panel.getBoundingClientRect();
+    const width = rect.width || 380;
+    const height = rect.height || 560;
+    const margin = 10;
+    return {
+      left: Math.max(margin, Math.min(window.innerWidth - width - margin, left)),
+      top: Math.max(margin, Math.min(window.innerHeight - height - margin, top))
+    };
+  }
+
+  function placePanel(left, top){
+    const pos = clampPanelPosition(left, top);
+    bot.classList.add('panel-detached');
+    panel.style.position = 'fixed';
+    panel.style.left = `${pos.left}px`;
+    panel.style.top = `${pos.top}px`;
+    panel.style.right = 'auto';
+    panel.style.bottom = 'auto';
+    panel.style.transform = 'none';
+  }
+
+  panelHeader?.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('.scbot-close')) return;
+    if (e.button !== undefined && e.button !== 0) return;
+    const rect = panel.getBoundingClientRect();
+    panelDragState = {
+      offsetX: e.clientX - rect.left,
+      offsetY: e.clientY - rect.top
+    };
+    placePanel(rect.left, rect.top);
+    panelHeader.setPointerCapture?.(e.pointerId);
+    bot.classList.add('panel-dragging');
+    e.preventDefault();
+  });
+
+  panelHeader?.addEventListener('pointermove', (e) => {
+    if (!panelDragState) return;
+    e.preventDefault();
+    placePanel(e.clientX - panelDragState.offsetX, e.clientY - panelDragState.offsetY);
+  });
+
+  function getDefaultPanelBottom(){
+    // Same visual row as the panel's original position above the floating bubble.
+    return window.matchMedia('(max-width:720px)').matches ? 92 : 112;
+  }
+
+  function snapPanelToDefaultRow(){
+    if (!panel) return;
+    const rect = panel.getBoundingClientRect();
+    const width = rect.width || 380;
+    const height = rect.height || 560;
+    const margin = 10;
+    const targetLeft = Math.max(margin, Math.min(window.innerWidth - width - margin, rect.left));
+    const targetTop = Math.max(margin, Math.min(window.innerHeight - height - margin, window.innerHeight - height - getDefaultPanelBottom()));
+
+    bot.classList.add('panel-detached','panel-settling');
+    panel.style.position = 'fixed';
+    panel.style.left = `${targetLeft}px`;
+    panel.style.top = `${targetTop}px`;
+    panel.style.right = 'auto';
+    panel.style.bottom = 'auto';
+    panel.style.transform = 'none';
+
+    window.setTimeout(() => {
+      bot.classList.remove('panel-settling');
+    }, 420);
+  }
+
+  function endPanelDrag(){
+    if (!panelDragState) return;
+    panelDragState = null;
+    bot.classList.remove('panel-dragging');
+    snapPanelToDefaultRow();
+  }
+
+  panelHeader?.addEventListener('pointerup', endPanelDrag);
+  panelHeader?.addEventListener('pointercancel', endPanelDrag);
+  window.addEventListener('resize', () => {
+    if (bot.classList.contains('panel-detached')) {
+      const rect = panel.getBoundingClientRect();
+      placePanel(rect.left, rect.top);
+    }
+  });
+
   toggle.addEventListener('click', () => {
     if (suppressToggleClick) return;
     bot.classList.contains('open') ? closeBot() : openBot();
